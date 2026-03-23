@@ -1,0 +1,2080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Edinburgh">
+<meta name="theme-color" content="#c8e8f5">
+<title>Edinburgh • April 2025</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #f8f6f1;
+    --surface: #ffffff;
+    --navy: #1a1a2e;
+    --plaid: #2d5016;
+    --thistle: #8b5e8b;
+    --stone: #6b6560;
+    --warm-grey: #e8e4dc;
+    --accent: #c4703f;
+    --text: #1a1a1a;
+    --text-light: #6b6560;
+    --border: rgba(0,0,0,0.08);
+    --shadow: 0 2px 20px rgba(0,0,0,0.06);
+    --radius: 16px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    height: 100svh;
+    min-height: 620px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    background: #e8f4f8;
+  }
+
+  /* Sky gradient background */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, #c8e8f5 0%, #dff0f8 35%, #eef7fb 60%, #f5f0e8 100%);
+  }
+
+  /* Fluffy clouds */
+  .hero-clouds {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 50%;
+    pointer-events: none;
+  }
+
+  /* Illustrated icons scattered across hero */
+  .hero-icons {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hi {
+    position: absolute;
+    font-size: 0px; /* SVG only */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Bottom city strip */
+  .hero-city {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    padding: 28px 28px 40px;
+    text-align: center;
+  }
+
+  .hero-flag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    border-radius: 30px;
+    padding: 6px 14px 6px 10px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  .hero-flag svg { width: 24px; height: 16px; border-radius: 3px; }
+
+  .hero-flag-text {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #1a3a6b;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(54px, 15vw, 84px);
+    font-weight: 600;
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    margin-bottom: 0;
+    color: #1a2f5e;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    font-weight: 300;
+    color: #c4703f;
+    display: block;
+    font-size: 0.52em;
+    letter-spacing: 0.04em;
+    margin-top: 4px;
+  }
+
+  .hero-dates {
+    font-size: 13px;
+    color: #6b7a8d;
+    letter-spacing: 0.08em;
+    margin-bottom: 28px;
+    margin-top: 14px;
+    font-weight: 500;
+  }
+
+  .hero-scroll {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-pill {
+    background: white;
+    border: 1.5px solid rgba(26,47,94,0.15);
+    color: #1a2f5e;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 24px;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .hero-pill:active { background: #1a2f5e; color: white; }
+
+  /* ── NAV ── */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(248,246,241,0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-scroll {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 0 16px;
+    gap: 2px;
+  }
+
+  .nav-scroll::-webkit-scrollbar { display: none; }
+
+  .nav-btn {
+    flex-shrink: 0;
+    padding: 14px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--stone);
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-btn.active {
+    color: var(--navy);
+    font-weight: 500;
+    border-bottom-color: var(--navy);
+  }
+
+  /* ── SECTIONS ── */
+  section { display: none; padding: 24px 20px 100px; }
+  section.active { display: block; }
+
+  .section-header {
+    margin-bottom: 28px;
+  }
+
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 6px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--navy);
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  /* ── ITINERARY ── */
+  .day-tab-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  .day-tab-row::-webkit-scrollbar { display: none; }
+
+  .day-tab {
+    flex-shrink: 0;
+    padding: 8px 18px;
+    border-radius: 30px;
+    border: 1.5px solid var(--warm-grey);
+    background: white;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--stone);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .day-tab.active {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: white;
+    font-weight: 500;
+  }
+
+  .day-panel { display: none; }
+  .day-panel.active { display: block; }
+
+  .day-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .day-date {
+    font-size: 12px;
+    color: var(--stone);
+    letter-spacing: 0.06em;
+    margin-bottom: 18px;
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 4px;
+    position: relative;
+  }
+
+  .timeline-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 48px;
+  }
+
+  .timeline-time {
+    font-size: 11px;
+    color: var(--stone);
+    letter-spacing: 0.04em;
+    text-align: center;
+    line-height: 1.2;
+    padding-top: 2px;
+  }
+
+  .timeline-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--navy);
+    margin: 6px 0 0;
+    flex-shrink: 0;
+  }
+
+  .timeline-line {
+    width: 1px;
+    background: var(--warm-grey);
+    flex: 1;
+    margin-top: 4px;
+  }
+
+  .timeline-content {
+    flex: 1;
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+  }
+
+  .timeline-tag {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .timeline-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .timeline-desc {
+    font-size: 13px;
+    color: var(--stone);
+    line-height: 1.5;
+  }
+
+  .timeline-cost {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 11px;
+    color: var(--plaid);
+    background: rgba(45,80,22,0.08);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+
+  /* ── RESTAURANTS ── */
+  .restaurant-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .rest-emoji {
+    font-size: 28px;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--warm-grey);
+    border-radius: 10px;
+  }
+
+  .rest-body { flex: 1; }
+
+  .rest-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+
+  .rest-meta {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .rest-desc {
+    font-size: 13px;
+    color: var(--stone);
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  .rest-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--warm-grey);
+    color: var(--stone);
+  }
+
+  .tag.budget { border-color: rgba(45,80,22,0.2); color: var(--plaid); background: rgba(45,80,22,0.05); }
+  .tag.mid { border-color: rgba(196,112,63,0.2); color: var(--accent); background: rgba(196,112,63,0.05); }
+  .tag.splurge { border-color: rgba(139,94,139,0.2); color: var(--thistle); background: rgba(139,94,139,0.05); }
+
+  .rest-filter-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  .rest-filter-row::-webkit-scrollbar { display: none; }
+
+  .filter-btn {
+    flex-shrink: 0;
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: 1.5px solid var(--warm-grey);
+    background: white;
+    font-size: 12px;
+    color: var(--stone);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn.active {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: white;
+  }
+
+  /* ── ATTRACTIONS ── */
+  .attraction-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  .attr-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+
+  .attr-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--navy);
+    flex: 1;
+    padding-right: 12px;
+  }
+
+  .attr-badge {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+
+  .attr-badge.free { background: rgba(45,80,22,0.1); color: var(--plaid); }
+  .attr-badge.paid { background: rgba(196,112,63,0.1); color: var(--accent); }
+
+  .attr-desc {
+    font-size: 13px;
+    color: var(--stone);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .attr-tip {
+    background: rgba(26,26,46,0.04);
+    border-left: 3px solid var(--navy);
+    padding: 10px 14px;
+    border-radius: 0 8px 8px 0;
+    font-size: 12px;
+    color: var(--navy);
+    line-height: 1.5;
+  }
+
+  .attr-tip::before {
+    content: '💡 Tip: ';
+    font-weight: 500;
+  }
+
+  /* ── TIPS ── */
+  .tips-cat {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--navy);
+    margin: 24px 0 12px;
+  }
+
+  .tips-cat:first-child { margin-top: 0; }
+
+  .tip-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  .tip-icon { font-size: 18px; flex-shrink: 0; }
+
+  .tip-text { font-size: 13px; color: var(--stone); line-height: 1.5; }
+  .tip-text strong { color: var(--navy); font-weight: 500; }
+
+  /* ── MAP ── */
+  .map-placeholder {
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+
+  .map-iframe-wrap {
+    width: 100%;
+    height: 340px;
+    position: relative;
+  }
+
+  .map-iframe-wrap iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .map-place-list { margin-top: 16px; }
+
+  .map-place {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 14px 16px;
+    background: var(--surface);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  .map-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .map-place-name { font-size: 14px; font-weight: 500; color: var(--navy); }
+  .map-place-area { font-size: 12px; color: var(--stone); }
+
+  /* ── GALLERY ── */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .gallery-item {
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    background: var(--warm-grey);
+    position: relative;
+  }
+
+  .gallery-item.wide {
+    grid-column: span 2;
+    aspect-ratio: 16/9;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 12px 10px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.55));
+    color: white;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+
+  .gallery-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--stone);
+    font-size: 32px;
+    gap: 8px;
+    background: var(--warm-grey);
+  }
+
+  .gallery-placeholder span {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  .photo-note {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--stone);
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  /* ── WEATHER BANNER ── */
+  .weather-banner {
+    background: linear-gradient(135deg, var(--navy) 0%, #2d3a6b 100%);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .weather-icon { font-size: 36px; }
+
+  .weather-text h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 300;
+    margin-bottom: 4px;
+  }
+
+  .weather-text p { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.4; }
+
+  /* ── PACKING ── */
+  .packing-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+
+  .pack-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .pack-item:last-child { border-bottom: none; }
+  .pack-item:active { background: var(--warm-grey); }
+
+  .pack-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1.5px solid var(--warm-grey);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-size: 11px;
+    color: transparent;
+  }
+
+  .pack-item.checked .pack-check {
+    background: var(--plaid);
+    border-color: var(--plaid);
+    color: white;
+  }
+
+  .pack-item.checked .pack-label {
+    text-decoration: line-through;
+    color: var(--stone);
+  }
+
+  .pack-label { font-size: 14px; color: var(--text); }
+
+  /* ── BOTTOM NAV ── */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border);
+    display: flex;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .bnav-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 4px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    transition: opacity 0.2s;
+  }
+
+  .bnav-icon { font-size: 20px; transition: transform 0.2s; }
+  .bnav-label {
+    font-size: 10px;
+    color: var(--stone);
+    letter-spacing: 0.04em;
+    font-weight: 400;
+  }
+
+  .bnav-btn.active .bnav-icon { transform: translateY(-2px); }
+  .bnav-btn.active .bnav-label { color: var(--navy); font-weight: 500; }
+
+  /* ── ANIMATION ── */
+  .fade-in {
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── UTILITY ── */
+  .divider {
+    height: 1px;
+    background: var(--warm-grey);
+    margin: 20px 0;
+  }
+
+  .full-width-cta {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1.5px solid var(--navy);
+    background: transparent;
+    color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .full-width-cta:active { background: var(--navy); color: white; }
+</style>
+</head>
+<body>
+
+<!-- ──── HERO ──── -->
+<div class="hero" id="heroSection">
+  <div class="hero-bg"></div>
+
+  <!-- Fluffy clouds -->
+  <svg class="hero-clouds" viewBox="0 0 390 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <ellipse cx="60" cy="55" rx="48" ry="22" fill="white" opacity="0.85"/>
+    <ellipse cx="90" cy="48" rx="36" ry="18" fill="white" opacity="0.85"/>
+    <ellipse cx="36" cy="60" rx="28" ry="14" fill="white" opacity="0.85"/>
+    <ellipse cx="280" cy="38" rx="55" ry="24" fill="white" opacity="0.75"/>
+    <ellipse cx="315" cy="30" rx="40" ry="20" fill="white" opacity="0.75"/>
+    <ellipse cx="250" cy="44" rx="30" ry="15" fill="white" opacity="0.75"/>
+    <ellipse cx="160" cy="25" rx="38" ry="16" fill="white" opacity="0.6"/>
+    <ellipse cx="185" cy="20" rx="28" ry="13" fill="white" opacity="0.6"/>
+  </svg>
+
+  <!-- Illustrated icons -->
+  <div class="hero-icons">
+    <!-- Kilt (top left) -->
+    <svg style="position:absolute;top:10%;left:3%;width:68px;opacity:0.92" viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
+      <rect x="8" y="0" width="64" height="14" rx="3" fill="#c8102e" stroke="#1a1a6e" stroke-width="1.5"/>
+      <rect x="8" y="12" width="10" height="62" fill="#1a1a6e"/>
+      <rect x="20" y="12" width="8" height="62" fill="#c8102e"/>
+      <rect x="30" y="12" width="4" height="62" fill="#f5c518"/>
+      <rect x="36" y="12" width="8" height="62" fill="#c8102e"/>
+      <rect x="46" y="12" width="4" height="62" fill="#f5c518"/>
+      <rect x="52" y="12" width="8" height="62" fill="#c8102e"/>
+      <rect x="62" y="12" width="10" height="62" fill="#1a1a6e"/>
+      <line x1="18" y1="12" x2="14" y2="74" stroke="white" stroke-width="0.8" opacity="0.4"/>
+      <line x1="28" y1="12" x2="24" y2="74" stroke="white" stroke-width="0.8" opacity="0.4"/>
+      <line x1="38" y1="12" x2="34" y2="74" stroke="white" stroke-width="0.8" opacity="0.4"/>
+      <line x1="48" y1="12" x2="44" y2="74" stroke="white" stroke-width="0.8" opacity="0.4"/>
+      <line x1="58" y1="12" x2="54" y2="74" stroke="white" stroke-width="0.8" opacity="0.4"/>
+      <rect x="8" y="72" width="64" height="4" rx="2" fill="#1a1a6e" opacity="0.5"/>
+    </svg>
+
+    <!-- Whisky glass (top right) -->
+    <svg style="position:absolute;top:8%;right:5%;width:54px;opacity:0.9" viewBox="0 0 60 80" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 8 L8 60 L52 60 L48 8 Z" fill="none" stroke="#6b4c2a" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M12 8 L14 28 L46 28 L48 8 Z" fill="#c4853f" opacity="0.35"/>
+      <ellipse cx="30" cy="60" rx="22" ry="5" fill="#6b4c2a" opacity="0.15"/>
+      <rect x="22" y="60" width="16" height="6" rx="1" fill="#6b4c2a" opacity="0.4"/>
+      <rect x="16" y="66" width="28" height="4" rx="2" fill="#6b4c2a" opacity="0.35"/>
+      <rect x="18" y="32" width="10" height="10" rx="2" fill="white" opacity="0.6" transform="rotate(-15 23 37)"/>
+      <rect x="32" y="35" width="9" height="9" rx="2" fill="white" opacity="0.5" transform="rotate(10 36 39)"/>
+    </svg>
+
+    <!-- Bagpipes (left mid) -->
+    <svg style="position:absolute;top:30%;left:1%;width:60px;opacity:0.85" viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="35" cy="55" rx="26" ry="30" fill="#c8102e" stroke="#8b0000" stroke-width="1.5"/>
+      <ellipse cx="35" cy="55" rx="20" ry="24" fill="#c8102e"/>
+      <line x1="15" y1="45" x2="55" y2="45" stroke="#1a1a6e" stroke-width="1.5" opacity="0.4"/>
+      <line x1="15" y1="55" x2="55" y2="55" stroke="#1a1a6e" stroke-width="1.5" opacity="0.4"/>
+      <line x1="15" y1="65" x2="55" y2="65" stroke="#1a1a6e" stroke-width="1.5" opacity="0.4"/>
+      <line x1="25" y1="28" x2="25" y2="82" stroke="#1a1a6e" stroke-width="1.5" opacity="0.4"/>
+      <line x1="35" y1="26" x2="35" y2="84" stroke="#1a1a6e" stroke-width="1.5" opacity="0.4"/>
+      <line x1="45" y1="28" x2="45" y2="82" stroke="#1a1a6e" stroke-width="1.5" opacity="0.4"/>
+      <rect x="30" y="5" width="6" height="40" rx="3" fill="#8b6914"/>
+      <rect x="40" y="10" width="5" height="35" rx="2.5" fill="#8b6914" transform="rotate(15 42 27)"/>
+      <rect x="20" y="10" width="5" height="35" rx="2.5" fill="#8b6914" transform="rotate(-10 22 27)"/>
+      <rect x="38" y="48" width="5" height="52" rx="2.5" fill="#8b6914" transform="rotate(20 40 74)"/>
+    </svg>
+
+    <!-- Shortbread (top centre) -->
+    <svg style="position:absolute;top:7%;left:40%;width:50px;opacity:0.88" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="30" cy="30" rx="26" ry="22" fill="#e8b86d" stroke="#c49a45" stroke-width="2"/>
+      <ellipse cx="30" cy="30" rx="20" ry="16" fill="#f0ca80" stroke="#c49a45" stroke-width="1"/>
+      <circle cx="22" cy="26" r="2.5" fill="#c49a45"/>
+      <circle cx="30" cy="24" r="2.5" fill="#c49a45"/>
+      <circle cx="38" cy="26" r="2.5" fill="#c49a45"/>
+      <circle cx="22" cy="34" r="2.5" fill="#c49a45"/>
+      <circle cx="30" cy="36" r="2.5" fill="#c49a45"/>
+      <circle cx="38" cy="34" r="2.5" fill="#c49a45"/>
+    </svg>
+
+    <!-- Thistle (right mid) -->
+    <svg style="position:absolute;top:28%;right:3%;width:50px;opacity:0.88" viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg">
+      <line x1="30" y1="95" x2="30" y2="45" stroke="#4a7c2f" stroke-width="3" stroke-linecap="round"/>
+      <path d="M30 75 Q18 65 14 55 Q22 60 30 70Z" fill="#4a7c2f"/>
+      <path d="M30 70 Q42 60 46 50 Q38 55 30 65Z" fill="#4a7c2f"/>
+      <circle cx="30" cy="35" r="18" fill="#8b5e9e"/>
+      <circle cx="30" cy="35" r="14" fill="#a06db5"/>
+      <path d="M30 12 Q33 20 30 22 Q27 20 30 12Z" fill="#c490d8"/>
+      <path d="M30 12 Q34 18 32 22 Q28 21 30 12Z" fill="#b87cc8" transform="rotate(40 30 35)"/>
+      <path d="M30 12 Q34 18 32 22 Q28 21 30 12Z" fill="#c490d8" transform="rotate(80 30 35)"/>
+      <path d="M30 12 Q34 18 32 22 Q28 21 30 12Z" fill="#b87cc8" transform="rotate(120 30 35)"/>
+      <path d="M30 12 Q34 18 32 22 Q28 21 30 12Z" fill="#c490d8" transform="rotate(160 30 35)"/>
+      <path d="M30 12 Q34 18 32 22 Q28 21 30 12Z" fill="#b87cc8" transform="rotate(200 30 35)"/>
+      <path d="M30 12 Q34 18 32 22 Q28 21 30 12Z" fill="#c490d8" transform="rotate(240 30 35)"/>
+      <path d="M30 12 Q34 18 32 22 Q28 21 30 12Z" fill="#b87cc8" transform="rotate(280 30 35)"/>
+      <path d="M30 12 Q34 18 32 22 Q28 21 30 12Z" fill="#c490d8" transform="rotate(320 30 35)"/>
+    </svg>
+
+    <!-- Edinburgh Castle + Arthur's Seat skyline at base -->
+    <svg style="position:absolute;bottom:0;left:0;right:0;width:100%" viewBox="0 0 390 175" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
+      <!-- Green hill -->
+      <ellipse cx="160" cy="160" rx="140" ry="32" fill="#b5c9a0" opacity="0.6"/>
+      <!-- Castle body -->
+      <rect x="72" y="85" width="170" height="80" rx="2" fill="#c8b89a"/>
+      <rect x="72" y="85" width="170" height="80" rx="2" fill="url(#stoneGrad)"/>
+      <defs>
+        <linearGradient id="stoneGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#d4c4a4"/>
+          <stop offset="100%" stop-color="#a89878"/>
+        </linearGradient>
+      </defs>
+      <!-- Battlements row -->
+      <rect x="72" y="76" width="12" height="13" rx="1" fill="#b8a880"/>
+      <rect x="88" y="76" width="12" height="13" rx="1" fill="#b8a880"/>
+      <rect x="104" y="76" width="12" height="13" rx="1" fill="#b8a880"/>
+      <rect x="120" y="72" width="14" height="17" rx="1" fill="#a89870"/>
+      <rect x="140" y="68" width="16" height="21" rx="1" fill="#a89870"/>
+      <rect x="160" y="72" width="14" height="17" rx="1" fill="#a89870"/>
+      <rect x="178" y="76" width="12" height="13" rx="1" fill="#b8a880"/>
+      <rect x="194" y="76" width="12" height="13" rx="1" fill="#b8a880"/>
+      <rect x="210" y="76" width="12" height="13" rx="1" fill="#b8a880"/>
+      <rect x="226" y="76" width="10" height="13" rx="1" fill="#b8a880"/>
+      <!-- Main central tower -->
+      <rect x="138" y="42" width="42" height="46" rx="2" fill="#a09070"/>
+      <!-- Tower battlements -->
+      <rect x="136" y="33" width="9" height="13" rx="1" fill="#908060"/>
+      <rect x="149" y="28" width="10" height="18" rx="1" fill="#908060"/>
+      <rect x="163" y="33" width="9" height="13" rx="1" fill="#908060"/>
+      <!-- Flag pole & Saltire -->
+      <line x1="154" y1="28" x2="154" y2="6" stroke="#7a6040" stroke-width="1.5"/>
+      <rect x="154" y="6" width="20" height="13" rx="1" fill="#003399"/>
+      <line x1="154" y1="6" x2="174" y2="19" stroke="white" stroke-width="2"/>
+      <line x1="174" y1="6" x2="154" y2="19" stroke="white" stroke-width="2"/>
+      <!-- Windows -->
+      <rect x="88" y="96" width="11" height="16" rx="1" fill="#7a95b5" opacity="0.75"/>
+      <rect x="108" y="96" width="11" height="16" rx="1" fill="#7a95b5" opacity="0.75"/>
+      <rect x="198" y="96" width="11" height="16" rx="1" fill="#7a95b5" opacity="0.75"/>
+      <rect x="218" y="96" width="11" height="16" rx="1" fill="#7a95b5" opacity="0.75"/>
+      <rect x="148" y="55" width="11" height="15" rx="1" fill="#7a95b5" opacity="0.75"/>
+      <!-- Gate arch -->
+      <rect x="143" y="128" width="32" height="37" rx="2" fill="#887050"/>
+      <path d="M143 145 Q159 130 175 145" fill="#887050" stroke="#7a6040" stroke-width="1"/>
+      <!-- Rock base -->
+      <path d="M55 165 Q75 140 120 138 Q157 135 200 138 Q240 140 255 150 L260 165Z" fill="#9aaa88" opacity="0.7"/>
+      <!-- Arthur's Seat -->
+      <path d="M270 170 Q295 95 330 100 Q355 102 390 148 L390 175 L270 175Z" fill="#8aac75" opacity="0.75"/>
+      <path d="M290 170 Q315 108 335 100" fill="none" stroke="#6a8c55" stroke-width="1.5" opacity="0.45"/>
+      <!-- Ground strip -->
+      <rect x="0" y="160" width="390" height="15" fill="#9aba88" opacity="0.65"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-flag">
+      <svg viewBox="0 0 24 16" xmlns="http://www.w3.org/2000/svg">
+        <rect width="24" height="16" fill="#003399"/>
+        <line x1="0" y1="0" x2="24" y2="16" stroke="white" stroke-width="3.5"/>
+        <line x1="24" y1="0" x2="0" y2="16" stroke="white" stroke-width="3.5"/>
+      </svg>
+      <span class="hero-flag-text">Scotland</span>
+    </div>
+    <h1 class="hero-title">
+      Edinburgh
+      <em>Your Guide</em>
+    </h1>
+    <p class="hero-dates">3 – 6 April &nbsp;·&nbsp; 4 Days &nbsp;·&nbsp; First Visit</p>
+    <div class="hero-scroll">
+      <span class="hero-pill" onclick="showSection('itinerary')">📅 Itinerary</span>
+      <span class="hero-pill" onclick="showSection('restaurants')">🍽 Restaurants</span>
+      <span class="hero-pill" onclick="showSection('attractions')">🏰 Sights</span>
+      <span class="hero-pill" onclick="showSection('tips')">💡 Tips</span>
+    </div>
+  </div>
+</div>
+
+<!-- ──── TOP NAV ──── -->
+<nav class="nav" id="mainNav" style="display:none">
+  <div class="nav-scroll">
+    <button class="nav-btn active" onclick="showSection('itinerary')">Itinerary</button>
+    <button class="nav-btn" onclick="showSection('restaurants')">Restaurants</button>
+    <button class="nav-btn" onclick="showSection('attractions')">Attractions</button>
+    <button class="nav-btn" onclick="showSection('tips')">Tips & Packing</button>
+    <button class="nav-btn" onclick="showSection('map')">Map</button>
+    <button class="nav-btn" onclick="showSection('gallery')">Gallery</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════ -->
+<!--  SECTION: ITINERARY                  -->
+<!-- ══════════════════════════════════════ -->
+<section id="itinerary">
+  <div class="section-header">
+    <p class="section-eyebrow">Day by Day</p>
+    <h2 class="section-title">Your Itinerary</h2>
+  </div>
+
+  <div class="day-tab-row">
+    <button class="day-tab active" onclick="showDay(0)">Thu 3 Apr</button>
+    <button class="day-tab" onclick="showDay(1)">Fri 4 Apr</button>
+    <button class="day-tab" onclick="showDay(2)">Sat 5 Apr</button>
+    <button class="day-tab" onclick="showDay(3)">Sun 6 Apr</button>
+  </div>
+
+  <!-- Day 1 -->
+  <div class="day-panel active" id="day-0">
+    <div class="day-label">Arrival Day</div>
+    <div class="day-date">Thursday, 3 April</div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">AM</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Arrival</div>
+        <div class="timeline-title">Check into your hotel</div>
+        <div class="timeline-desc">Settle in and drop your bags. Most hotels allow early luggage storage if your room isn't ready yet.</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">12pm</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Lunch</div>
+        <div class="timeline-title">Dishoom – St Andrew's Square</div>
+        <div class="timeline-desc">Edinburgh's most beloved Indian brunch spot. Classic bacon naan roll or the full Scottish-inflected menu. Book ahead!</div>
+        <span class="timeline-cost">££ · Book in advance</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">2pm</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Explore</div>
+        <div class="timeline-title">Royal Mile First Walk</div>
+        <div class="timeline-desc">Walk the famous spine of the Old Town — from Edinburgh Castle down to Holyrood Palace. Get a feel for the city's scale and atmosphere.</div>
+        <span class="timeline-cost">Free</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">4pm</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Viewpoint</div>
+        <div class="timeline-title">Calton Hill at Sunset</div>
+        <div class="timeline-desc">Easy climb, spectacular 360° views over the city. Best light in early April evenings. Nelson's Monument and the National Monument are here too.</div>
+        <span class="timeline-cost">Free</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">7pm</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Dinner</div>
+        <div class="timeline-title">The Devil's Advocate</div>
+        <div class="timeline-desc">Atmospheric bar and restaurant tucked off the Royal Mile. Sharing boards, whisky cocktails, candle-lit tables. A perfect first Edinburgh evening.</div>
+        <span class="timeline-cost">££–£££ · Book ahead</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 2 -->
+  <div class="day-panel" id="day-1">
+    <div class="day-label">Castle & Old Town</div>
+    <div class="day-date">Friday, 4 April</div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">9am</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Breakfast</div>
+        <div class="timeline-title">Lannan Bakery</div>
+        <div class="timeline-desc">Beloved local bakery. Exceptional pastries and coffee. Go early — it gets busy fast.</div>
+        <span class="timeline-cost">£ · Cash friendly</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">10am</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Must-Do</div>
+        <div class="timeline-title">Edinburgh Castle</div>
+        <div class="timeline-desc">Allow 2–3 hours. See the Scottish Crown Jewels, Stone of Destiny, Great Hall, and the One O'Clock Gun at 1pm. Arrive early to beat crowds.</div>
+        <span class="timeline-cost">£18–£22 · Book online</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">1pm</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Lunch</div>
+        <div class="timeline-title">The Outsider</div>
+        <div class="timeline-desc">Brilliant value set lunch with a view of Edinburgh Castle. Modern European bistro cooking — goat cheese tartlet, daily fish specials.</div>
+        <span class="timeline-cost">££ · Set lunch deal</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">2:30pm</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Wander</div>
+        <div class="timeline-title">Victoria Street & Grassmarket</div>
+        <div class="timeline-desc">Colourful curved street with quirky shops — Harry Potter fans say it inspired Diagon Alley. Then explore Grassmarket's bustling square and historic pubs.</div>
+        <span class="timeline-cost">Free</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">4pm</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Culture</div>
+        <div class="timeline-title">Scottish National Gallery</div>
+        <div class="timeline-desc">World-class art collection — Titian, Raphael, Rembrandt, and Scottish masters. Free entry, and magnificent neoclassical building.</div>
+        <span class="timeline-cost">Free</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">7pm</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Dinner</div>
+        <div class="timeline-title">Noto</div>
+        <div class="timeline-desc">Exciting sharing plates with Japanese-Scottish fusions. Butter-soft pork belly, sashimi, soy-glazed bread. Intimate Thistle Street location.</div>
+        <span class="timeline-cost">£££ · Book ahead</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 3 -->
+  <div class="day-panel" id="day-2">
+    <div class="day-label">New Town & Nature</div>
+    <div class="day-date">Saturday, 5 April</div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">9am</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Breakfast</div>
+        <div class="timeline-title">The Pantry, Stockbridge</div>
+        <div class="timeline-desc">Charming neighbourhood brunch spot in the pretty village of Stockbridge. Eggs, granola, excellent coffee.</div>
+        <span class="timeline-cost">££</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">10:30am</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Neighbourhood</div>
+        <div class="timeline-title">Dean Village & Circus Lane</div>
+        <div class="timeline-desc">Fairytale 19th-century mill village tucked beside the Water of Leith. Nearby Circus Lane is Edinburgh's most photogenic cobbled street — great for photos!</div>
+        <span class="timeline-cost">Free</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">12pm</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Gardens</div>
+        <div class="timeline-title">Royal Botanic Garden</div>
+        <div class="timeline-desc">70 acres of gardens — beautiful in April with spring blooms. Free entry to the garden; small charge for glasshouses.</div>
+        <span class="timeline-cost">Free (gardens)</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">2pm</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Hike</div>
+        <div class="timeline-title">Arthur's Seat</div>
+        <div class="timeline-desc">30–45 min climb up Edinburgh's ancient volcano. Sweeping views of the city, Firth of Forth, and Highlands on clear days. Wear sturdy shoes!</div>
+        <span class="timeline-cost">Free</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">5pm</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Drinks</div>
+        <div class="timeline-title">Johnnie Walker Princes Street Rooftop</div>
+        <div class="timeline-desc">Stunning rooftop bar with castle views. Edinburgh's finest whiskies and cocktails with the best view in the city.</div>
+        <span class="timeline-cost">££–£££</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">7:30pm</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Dinner</div>
+        <div class="timeline-title">Timberyard</div>
+        <div class="timeline-desc">Scandi-inspired farm-to-table in a converted warehouse. Seasonal tasting menu using hyper-local Scottish ingredients. One of Edinburgh's finest.</div>
+        <span class="timeline-cost">£££ · Book weeks ahead</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 4 -->
+  <div class="day-panel" id="day-3">
+    <div class="day-label">Holyrood & Farewell</div>
+    <div class="day-date">Sunday, 6 April</div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">9am</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Brunch</div>
+        <div class="timeline-title">Scran – Instagrammable brunch</div>
+        <div class="timeline-desc">Edinburgh's most photogenic brunch spot. Beautiful interiors and indulgent plates — great way to start the last day.</div>
+        <span class="timeline-cost">££</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">11am</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Royal Visit</div>
+        <div class="timeline-title">Palace of Holyroodhouse</div>
+        <div class="timeline-desc">The King's official Scottish residence. Note: closed Thursdays & Wednesdays except peak season — Sunday is perfect. Allow 1.5–2 hours.</div>
+        <span class="timeline-cost">~£18 · Book online</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">1pm</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">History</div>
+        <div class="timeline-title">Greyfriars Kirkyard & Harry Potter Walk</div>
+        <div class="timeline-desc">The 16th-century churchyard inspired JK Rowling — spot the Tom Riddle gravestone! Nearby Greyfriars Bobby statue (don't rub the nose — bad luck in Scotland!).</div>
+        <span class="timeline-cost">Free</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">3pm</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Last Lunch</div>
+        <div class="timeline-title">El Cartel Tacos</div>
+        <div class="timeline-desc">Edinburgh's best tacos — don't leave without trying the street corn. Relaxed, fun, and delicious farewell meal.</div>
+        <span class="timeline-cost">£ · Walk-ins usually fine</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-time">5pm</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-tag">Departure</div>
+        <div class="timeline-title">Head to your next destination</div>
+        <div class="timeline-desc">Farewell Edinburgh — city of castles, cobblestones, and a wee dram. Until next time! 🏴󠁧󠁢󠁳󠁣󠁴󠁿</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!--  SECTION: RESTAURANTS                -->
+<!-- ══════════════════════════════════════ -->
+<section id="restaurants">
+  <div class="section-header">
+    <p class="section-eyebrow">Where to Eat</p>
+    <h2 class="section-title">Restaurants &amp; Cafés</h2>
+  </div>
+
+  <div class="rest-filter-row">
+    <button class="filter-btn active" onclick="filterRest('all', this)">All</button>
+    <button class="filter-btn" onclick="filterRest('breakfast', this)">Breakfast</button>
+    <button class="filter-btn" onclick="filterRest('lunch', this)">Lunch</button>
+    <button class="filter-btn" onclick="filterRest('dinner', this)">Dinner</button>
+    <button class="filter-btn" onclick="filterRest('drinks', this)">Drinks</button>
+    <button class="filter-btn" onclick="filterRest('budget', this)">Budget £</button>
+    <button class="filter-btn" onclick="filterRest('splurge', this)">Splurge £££</button>
+  </div>
+
+  <div id="rest-list">
+
+    <div class="restaurant-card" data-cat="breakfast lunch">
+      <div class="rest-emoji">🥐</div>
+      <div class="rest-body">
+        <div class="rest-name">Lannan Bakery</div>
+        <div class="rest-meta">BAKERY · OLD TOWN</div>
+        <div class="rest-desc">Edinburgh's most beloved bakery for pastries, bread and coffee. Arrive early — favourites sell out by 10am.</div>
+        <div class="rest-tags">
+          <span class="tag budget">£</span>
+          <span class="tag">Breakfast</span>
+          <span class="tag">Pastries</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="restaurant-card" data-cat="breakfast lunch">
+      <div class="rest-emoji">☕</div>
+      <div class="rest-body">
+        <div class="rest-name">Dishoom</div>
+        <div class="rest-meta">INDIAN · ST ANDREW'S SQ</div>
+        <div class="rest-desc">Legendary Indian café beloved for its bacon naan roll and full breakfasts. Also great for lunch. Book ahead or expect a queue.</div>
+        <div class="rest-tags">
+          <span class="tag mid">££</span>
+          <span class="tag">Breakfast</span>
+          <span class="tag">Indian</span>
+          <span class="tag">Book Ahead</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="restaurant-card" data-cat="breakfast lunch">
+      <div class="rest-emoji">🥞</div>
+      <div class="rest-body">
+        <div class="rest-name">The Pantry</div>
+        <div class="rest-meta">CAFÉ · STOCKBRIDGE</div>
+        <div class="rest-desc">Charming neighbourhood brunch spot in the village-like Stockbridge area. Wonderful eggs, granola and fantastic coffee.</div>
+        <div class="rest-tags">
+          <span class="tag mid">££</span>
+          <span class="tag">Brunch</span>
+          <span class="tag">Neighbourhood</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="restaurant-card" data-cat="breakfast lunch">
+      <div class="rest-emoji">📸</div>
+      <div class="rest-body">
+        <div class="rest-name">Scran</div>
+        <div class="rest-meta">BRUNCH · EDINBURGH</div>
+        <div class="rest-desc">Edinburgh's most Instagrammable brunch spot — gorgeous interiors and indulgent plates. Perfect for a lazy Sunday morning.</div>
+        <div class="rest-tags">
+          <span class="tag mid">££</span>
+          <span class="tag">Brunch</span>
+          <span class="tag">Instagrammable</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="restaurant-card" data-cat="lunch">
+      <div class="rest-emoji">🏰</div>
+      <div class="rest-body">
+        <div class="rest-name">The Outsider</div>
+        <div class="rest-meta">BISTRO · GEORGE IV BRIDGE</div>
+        <div class="rest-desc">20-year Edinburgh institution with castle views. The set lunch menu is the best value deal in town — European dishes with a modern twist.</div>
+        <div class="rest-tags">
+          <span class="tag mid">££</span>
+          <span class="tag">Lunch</span>
+          <span class="tag">Castle View</span>
+          <span class="tag">Set Menu</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="restaurant-card" data-cat="lunch">
+      <div class="rest-emoji">🌮</div>
+      <div class="rest-body">
+        <div class="rest-name">El Cartel</div>
+        <div class="rest-meta">TACOS · OLD TOWN</div>
+        <div class="rest-desc">Edinburgh's best tacos — the street corn will change your life. Lively, affordable and fun. Perfect for a casual last lunch.</div>
+        <div class="rest-tags">
+          <span class="tag budget">£</span>
+          <span class="tag">Lunch</span>
+          <span class="tag">Mexican</span>
+          <span class="tag">Walk-ins</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="restaurant-card" data-cat="dinner splurge">
+      <div class="rest-emoji">🕯️</div>
+      <div class="rest-body">
+        <div class="rest-name">The Devil's Advocate</div>
+        <div class="rest-meta">BAR & GRILL · ADVOCATE'S CLOSE</div>
+        <div class="rest-desc">Hidden down a classic Edinburgh close off the Royal Mile. Industrial-rustic bar with sharing boards, whisky cocktails and candle-lit atmosphere.</div>
+        <div class="rest-tags">
+          <span class="tag mid">££–£££</span>
+          <span class="tag">Dinner</span>
+          <span class="tag">Whisky</span>
+          <span class="tag">Book Ahead</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="restaurant-card" data-cat="dinner splurge">
+      <div class="rest-emoji">🍱</div>
+      <div class="rest-body">
+        <div class="rest-name">Noto</div>
+        <div class="rest-meta">ASIAN FUSION · THISTLE ST</div>
+        <div class="rest-desc">Behind an unassuming door, Edinburgh's most exciting sharing plates. Japanese influences meet Scottish ingredients. Pork belly skewers, sashimi, soy bing bread.</div>
+        <div class="rest-tags">
+          <span class="tag splurge">£££</span>
+          <span class="tag">Dinner</span>
+          <span class="tag">Japanese-Scottish</span>
+          <span class="tag">Book Ahead</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="restaurant-card" data-cat="dinner splurge">
+      <div class="rest-emoji">🌿</div>
+      <div class="rest-body">
+        <div class="rest-name">Timberyard</div>
+        <div class="rest-meta">FARM-TO-TABLE · WEST PORT</div>
+        <div class="rest-desc">Stunning Scandi-inspired warehouse restaurant using hyper-seasonal Scottish ingredients. Tasting menu changes weekly. One of Edinburgh's finest experiences.</div>
+        <div class="rest-tags">
+          <span class="tag splurge">£££</span>
+          <span class="tag">Dinner</span>
+          <span class="tag">Tasting Menu</span>
+          <span class="tag">Book Weeks Ahead</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="restaurant-card" data-cat="dinner">
+      <div class="rest-emoji">🍺</div>
+      <div class="rest-body">
+        <div class="rest-name">The Piper's Rest</div>
+        <div class="rest-meta">PUB · ROYAL MILE</div>
+        <div class="rest-desc">Super cosy pub with live music. Classic Scottish pub food — steak pie, haggis, fish &amp; chips — and great atmosphere. No booking needed usually.</div>
+        <div class="rest-tags">
+          <span class="tag budget">£</span>
+          <span class="tag">Dinner</span>
+          <span class="tag">Scottish</span>
+          <span class="tag">Live Music</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="restaurant-card" data-cat="drinks">
+      <div class="rest-emoji">🥃</div>
+      <div class="rest-body">
+        <div class="rest-name">Johnnie Walker Princes St Rooftop</div>
+        <div class="rest-meta">WHISKY BAR · PRINCES ST</div>
+        <div class="rest-desc">Edinburgh's most spectacular rooftop with unobstructed castle views. Superb whiskies and cocktails — the 1820 bar is the crown jewel.</div>
+        <div class="rest-tags">
+          <span class="tag mid">££–£££</span>
+          <span class="tag">Drinks</span>
+          <span class="tag">Rooftop</span>
+          <span class="tag">Castle View</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="restaurant-card" data-cat="drinks">
+      <div class="rest-emoji">🍺</div>
+      <div class="rest-body">
+        <div class="rest-name">Salt Horse</div>
+        <div class="rest-meta">CRAFT BEER · NEAR ROYAL MILE</div>
+        <div class="rest-desc">Fun little bar with an exceptional range of craft beers including local Innis &amp; Gunn oak-aged brews. Friendly and relaxed.</div>
+        <div class="rest-tags">
+          <span class="tag budget">£</span>
+          <span class="tag">Drinks</span>
+          <span class="tag">Craft Beer</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="restaurant-card" data-cat="drinks">
+      <div class="rest-emoji">📖</div>
+      <div class="rest-body">
+        <div class="rest-name">Oxford Bar</div>
+        <div class="rest-meta">TRADITIONAL PUB · NEW TOWN</div>
+        <div class="rest-desc">Old-fashioned pub with wooden wainscoting and a fireplace. Featured in Ian Rankin's Rebus novels — the author is a regular. A proper Edinburgh local.</div>
+        <div class="rest-tags">
+          <span class="tag budget">£</span>
+          <span class="tag">Drinks</span>
+          <span class="tag">Traditional Pub</span>
+          <span class="tag">Literary</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="restaurant-card" data-cat="lunch splurge">
+      <div class="rest-emoji">🫖</div>
+      <div class="rest-body">
+        <div class="rest-name">Colonnades at Signet Library</div>
+        <div class="rest-meta">HIGH TEA · PARLIAMENT SQUARE</div>
+        <div class="rest-desc">The finest High Tea in Edinburgh in a spectacular pillared library. Scones, clotted cream, savoury bites. Book days ahead and budget for the splurge.</div>
+        <div class="rest-tags">
+          <span class="tag splurge">£££</span>
+          <span class="tag">Afternoon Tea</span>
+          <span class="tag">Book Ahead</span>
+          <span class="tag">Special Occasion</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!--  SECTION: ATTRACTIONS                -->
+<!-- ══════════════════════════════════════ -->
+<section id="attractions">
+  <div class="section-header">
+    <p class="section-eyebrow">What to See</p>
+    <h2 class="section-title">Top Attractions</h2>
+  </div>
+
+  <div class="attraction-card">
+    <div class="attr-header">
+      <div class="attr-name">🏰 Edinburgh Castle</div>
+      <span class="attr-badge paid">~£22</span>
+    </div>
+    <div class="attr-desc">The iconic fortress perched on volcanic rock — the heart of Edinburgh. See the Scottish Crown Jewels, Stone of Destiny, and the Great Hall. Watch the One O'Clock Gun fired from the north walls daily.</div>
+    <div class="attr-tip">Arrive at 9:30am opening to beat the crowds. Book tickets online in advance — they sell out.</div>
+  </div>
+
+  <div class="attraction-card">
+    <div class="attr-header">
+      <div class="attr-name">🦆 Arthur's Seat</div>
+      <span class="attr-badge free">Free</span>
+    </div>
+    <div class="attr-desc">Edinburgh's ancient extinct volcano rising 251m above the city. A 30–45 minute hike from Holyrood Park to 360° panoramic views — the Firth of Forth, castle, and on clear days, the Highlands.</div>
+    <div class="attr-tip">Wear proper shoes — can be slippery in April. Go on a clear morning for the best views.</div>
+  </div>
+
+  <div class="attraction-card">
+    <div class="attr-header">
+      <div class="attr-name">🏛️ Palace of Holyroodhouse</div>
+      <span class="attr-badge paid">~£18</span>
+    </div>
+    <div class="attr-desc">The King's official residence in Scotland, at the foot of the Royal Mile. Rich history — Mary Queen of Scots lived here. Beautiful state apartments and ruins of Holyrood Abbey.</div>
+    <div class="attr-tip">Closed Thursdays & Wednesdays outside peak season. Sunday is ideal. Book in advance.</div>
+  </div>
+
+  <div class="attraction-card">
+    <div class="attr-header">
+      <div class="attr-name">⛪ Greyfriars Kirk & Bobby</div>
+      <span class="attr-badge free">Free</span>
+    </div>
+    <div class="attr-desc">16th-century church with a famous kirkyard that inspired JK Rowling — spot the Tom Riddle gravestone. The loyal Skye Terrier Greyfriars Bobby waited at his master's grave for 14 years.</div>
+    <div class="attr-tip">Don't rub Greyfriars Bobby's nose — locals consider it bad luck and it has damaged the statue.</div>
+  </div>
+
+  <div class="attraction-card">
+    <div class="attr-header">
+      <div class="attr-name">🎨 Scottish National Gallery</div>
+      <span class="attr-badge free">Free</span>
+    </div>
+    <div class="attr-desc">World-class art collection in a stunning neoclassical building. Titian, Raphael, Rembrandt and a superb collection of Scottish paintings. One of the UK's finest galleries — totally free.</div>
+    <div class="attr-tip">Check for temporary exhibitions — usually also free or very cheap.</div>
+  </div>
+
+  <div class="attraction-card">
+    <div class="attr-header">
+      <div class="attr-name">⛰️ Calton Hill</div>
+      <span class="attr-badge free">Free</span>
+    </div>
+    <div class="attr-desc">Easy climb for spectacular city panoramas including the castle, Arthur's Seat, and Firth of Forth. Home to Nelson's Monument and the unfinished National Monument. Beautiful at sunrise and sunset.</div>
+    <div class="attr-tip">Perfect on Day 1 arrival evening — watch the sunset over the city.</div>
+  </div>
+
+  <div class="attraction-card">
+    <div class="attr-header">
+      <div class="attr-name">🌊 Victoria Street & Grassmarket</div>
+      <span class="attr-badge free">Free</span>
+    </div>
+    <div class="attr-desc">Victoria Street's colourful curved cobbled lane (thought to have inspired Diagon Alley) leads down to Grassmarket Square — once the site of public executions, now buzzing with pubs, cafés and markets.</div>
+    <div class="attr-tip">Great Saturday morning market in Grassmarket — check locally for April market dates.</div>
+  </div>
+
+  <div class="attraction-card">
+    <div class="attr-header">
+      <div class="attr-name">🌸 Royal Botanic Garden</div>
+      <span class="attr-badge free">Free</span>
+    </div>
+    <div class="attr-desc">70 acres of beautiful gardens — spectacular in April with spring blooms and cherry blossoms. The glasshouses are particularly impressive. One of the UK's finest botanic gardens.</div>
+    <div class="attr-tip">Garden entry is free; glasshouses have a small charge. Perfect for a peaceful afternoon.</div>
+  </div>
+
+  <div class="attraction-card">
+    <div class="attr-header">
+      <div class="attr-name">🏘️ Dean Village & Circus Lane</div>
+      <span class="attr-badge free">Free</span>
+    </div>
+    <div class="attr-desc">Dean Village is a picturesque 19th-century mill village along the Water of Leith — feels like Beauty and the Beast. Nearby Circus Lane is Edinburgh's most Instagrammable cobbled street.</div>
+    <div class="attr-tip">15-minute walk from Princes Street. Go in the morning for soft light and fewer people.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!--  SECTION: TIPS & PACKING             -->
+<!-- ══════════════════════════════════════ -->
+<section id="tips">
+  <div class="section-header">
+    <p class="section-eyebrow">Be Prepared</p>
+    <h2 class="section-title">Tips &amp; Packing</h2>
+  </div>
+
+  <div class="weather-banner">
+    <div class="weather-icon">🌦️</div>
+    <div class="weather-text">
+      <h3>Edinburgh in April</h3>
+      <p>Expect 8–14°C. Cool, sometimes windy with a chance of showers any day. But also beautiful bright spring days — the light is magical. Layers are your best friend.</p>
+    </div>
+  </div>
+
+  <div class="tips-cat">🗺️ Before You Go</div>
+
+  <div class="tip-item">
+    <div class="tip-icon">📅</div>
+    <div class="tip-text"><strong>Book attractions in advance.</strong> Edinburgh Castle, Holyroodhouse and popular restaurants fill up. Book online before you travel.</div>
+  </div>
+  <div class="tip-item">
+    <div class="tip-icon">🍽️</div>
+    <div class="tip-text"><strong>Make dinner reservations now.</strong> Noto, Timberyard and Devil's Advocate can be hard to get. Book 1–2 weeks ahead.</div>
+  </div>
+  <div class="tip-item">
+    <div class="tip-icon">💷</div>
+    <div class="tip-text"><strong>Scottish banknotes are different.</strong> Scotland uses British pounds (£) but notes look different to English ones. Both are valid — don't be surprised!</div>
+  </div>
+
+  <div class="tips-cat">🚶 Getting Around</div>
+
+  <div class="tip-item">
+    <div class="tip-icon">👟</div>
+    <div class="tip-text"><strong>Walk everywhere in Old Town.</strong> The city centre is very compact and walkable. Cobblestones are everywhere — wear comfortable shoes.</div>
+  </div>
+  <div class="tip-item">
+    <div class="tip-icon">🚌</div>
+    <div class="tip-text"><strong>Lothian Buses for New Town & Stockbridge.</strong> Reliable and cheap — you can pay contactless on every bus. No exact change needed.</div>
+  </div>
+  <div class="tip-item">
+    <div class="tip-icon">🚕</div>
+    <div class="tip-text"><strong>Taxis are metered and reasonable.</strong> City Cabs Edinburgh is reliable. Uber also operates here.</div>
+  </div>
+
+  <div class="tips-cat">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Culture & Etiquette</div>
+
+  <div class="tip-item">
+    <div class="tip-icon">🥃</div>
+    <div class="tip-text"><strong>Order "whisky" not "Scotch".</strong> In Scotland, you ask for whisky. Scotch is what the rest of the world calls it — locals will smile knowingly.</div>
+  </div>
+  <div class="tip-item">
+    <div class="tip-icon">🐕</div>
+    <div class="tip-text"><strong>Don't rub Greyfriars Bobby's nose.</strong> Tourists rub it for luck — but locals hate it and it has damaged the statue. Just admire!</div>
+  </div>
+  <div class="tip-item">
+    <div class="tip-icon">🌧️</div>
+    <div class="tip-text"><strong>Don't be put off by the weather.</strong> Edinburgh rain is usually light and brief. Keep a small umbrella or waterproof jacket and carry on exploring.</div>
+  </div>
+
+  <div class="tips-cat">💰 Money Saving</div>
+
+  <div class="tip-item">
+    <div class="tip-icon">🆓</div>
+    <div class="tip-text"><strong>So much is free!</strong> Scottish National Gallery, Royal Botanic Garden, Calton Hill, Arthur's Seat, Dean Village, Holyrood Park — all free.</div>
+  </div>
+  <div class="tip-item">
+    <div class="tip-icon">🍽️</div>
+    <div class="tip-text"><strong>Set lunch menus save money.</strong> Many fine restaurants offer great set lunch deals for a fraction of dinner prices — The Outsider is a perfect example.</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-header" style="margin-top:0">
+    <p class="section-eyebrow">Packing List</p>
+    <h2 class="section-title" style="font-size:28px">What to Pack</h2>
+  </div>
+
+  <div class="packing-list" id="packingList">
+    <div class="pack-item" onclick="togglePack(this)"><div class="pack-check">✓</div><div class="pack-label">☂️ Compact umbrella</div></div>
+    <div class="pack-item" onclick="togglePack(this)"><div class="pack-check">✓</div><div class="pack-label">🧥 Waterproof jacket / raincoat</div></div>
+    <div class="pack-item" onclick="togglePack(this)"><div class="pack-check">✓</div><div class="pack-label">🧣 Scarf & light layers</div></div>
+    <div class="pack-item" onclick="togglePack(this)"><div class="pack-check">✓</div><div class="pack-label">👟 Comfortable walking shoes</div></div>
+    <div class="pack-item" onclick="togglePack(this)"><div class="pack-check">✓</div><div class="pack-label">🥾 Sturdy shoes for Arthur's Seat</div></div>
+    <div class="pack-item" onclick="togglePack(this)"><div class="pack-check">✓</div><div class="pack-label">💳 Contactless card (for buses)</div></div>
+    <div class="pack-item" onclick="togglePack(this)"><div class="pack-check">✓</div><div class="pack-label">🔌 UK plug adapter (if needed)</div></div>
+    <div class="pack-item" onclick="togglePack(this)"><div class="pack-check">✓</div><div class="pack-label">📷 Camera or good phone camera</div></div>
+    <div class="pack-item" onclick="togglePack(this)"><div class="pack-check">✓</div><div class="pack-label">💊 Any prescriptions / paracetamol</div></div>
+    <div class="pack-item" onclick="togglePack(this)"><div class="pack-check">✓</div><div class="pack-label">📱 Offline maps downloaded</div></div>
+    <div class="pack-item" onclick="togglePack(this)"><div class="pack-check">✓</div><div class="pack-label">🎟️ Printed/saved booking confirmations</div></div>
+    <div class="pack-item" onclick="togglePack(this)"><div class="pack-check">✓</div><div class="pack-label">🧴 Travel toiletries</div></div>
+    <div class="pack-item" onclick="togglePack(this)"><div class="pack-check">✓</div><div class="pack-label">👗 Smart casual outfit for restaurants</div></div>
+    <div class="pack-item" onclick="togglePack(this)"><div class="pack-check">✓</div><div class="pack-label">🔋 Portable phone charger / power bank</div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!--  SECTION: MAP                        -->
+<!-- ══════════════════════════════════════ -->
+<section id="map">
+  <div class="section-header">
+    <p class="section-eyebrow">Get Around</p>
+    <h2 class="section-title">Key Places</h2>
+  </div>
+
+  <div class="map-placeholder">
+    <div class="map-iframe-wrap">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d18752.93505258316!2d-3.2094!3d55.9489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4887c78b73da4029%3A0x4d6f5bdedaf8a2b3!2sEdinburgh!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+
+  <a href="https://maps.google.com/maps/search/Edinburgh+attractions" target="_blank" class="full-width-cta">Open in Google Maps →</a>
+
+  <div class="map-place-list">
+    <div class="map-place">
+      <div class="map-num">1</div>
+      <div>
+        <div class="map-place-name">Edinburgh Castle</div>
+        <div class="map-place-area">Castlehill, Old Town · EH1 2NG</div>
+      </div>
+    </div>
+    <div class="map-place">
+      <div class="map-num">2</div>
+      <div>
+        <div class="map-place-name">Royal Mile</div>
+        <div class="map-place-area">Old Town — Castle to Holyrood</div>
+      </div>
+    </div>
+    <div class="map-place">
+      <div class="map-num">3</div>
+      <div>
+        <div class="map-place-name">Arthur's Seat</div>
+        <div class="map-place-area">Holyrood Park · EH8 8BH</div>
+      </div>
+    </div>
+    <div class="map-place">
+      <div class="map-num">4</div>
+      <div>
+        <div class="map-place-name">Calton Hill</div>
+        <div class="map-place-area">Regent Road · EH7 5AA</div>
+      </div>
+    </div>
+    <div class="map-place">
+      <div class="map-num">5</div>
+      <div>
+        <div class="map-place-name">Palace of Holyroodhouse</div>
+        <div class="map-place-area">Canongate, Old Town · EH8 8DX</div>
+      </div>
+    </div>
+    <div class="map-place">
+      <div class="map-num">6</div>
+      <div>
+        <div class="map-place-name">Victoria Street</div>
+        <div class="map-place-area">Old Town · EH1 2JW</div>
+      </div>
+    </div>
+    <div class="map-place">
+      <div class="map-num">7</div>
+      <div>
+        <div class="map-place-name">Greyfriars Kirkyard</div>
+        <div class="map-place-area">Greyfriars Place · EH1 2QQ</div>
+      </div>
+    </div>
+    <div class="map-place">
+      <div class="map-num">8</div>
+      <div>
+        <div class="map-place-name">Dean Village</div>
+        <div class="map-place-area">Bell's Brae · EH4 3BJ</div>
+      </div>
+    </div>
+    <div class="map-place">
+      <div class="map-num">9</div>
+      <div>
+        <div class="map-place-name">Royal Botanic Garden</div>
+        <div class="map-place-area">Inverleith Row · EH3 5LR</div>
+      </div>
+    </div>
+    <div class="map-place">
+      <div class="map-num">10</div>
+      <div>
+        <div class="map-place-name">Scottish National Gallery</div>
+        <div class="map-place-area">The Mound · EH2 2EL</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!--  SECTION: GALLERY                    -->
+<!-- ══════════════════════════════════════ -->
+<section id="gallery">
+  <div class="section-header">
+    <p class="section-eyebrow">Photo Inspiration</p>
+    <h2 class="section-title">Edinburgh Gallery</h2>
+  </div>
+
+  <div class="gallery-grid">
+    <div class="gallery-item wide">
+      <div class="gallery-placeholder">
+        🏰
+        <span>Edinburgh Castle</span>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        🌋
+        <span>Arthur's Seat</span>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        🏘️
+        <span>Dean Village</span>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        🌈
+        <span>Victoria Street</span>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        🌸
+        <span>Botanic Garden</span>
+      </div>
+    </div>
+    <div class="gallery-item wide">
+      <div class="gallery-placeholder">
+        ⛰️
+        <span>Calton Hill Panorama</span>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        🐕
+        <span>Greyfriars Bobby</span>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        🛤️
+        <span>Circus Lane</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="photo-note">
+    📸 Add your own photos as you explore! This gallery shows your key photo spots — each one is worth a visit for the perfect shot.
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="tips-cat" style="margin-top:0">📸 Best Photo Spots</div>
+  <div class="tip-item">
+    <div class="tip-icon">🌅</div>
+    <div class="tip-text"><strong>Calton Hill at sunrise/sunset</strong> — Golden light over the castle and city. Go early to beat other photographers.</div>
+  </div>
+  <div class="tip-item">
+    <div class="tip-icon">🛤️</div>
+    <div class="tip-text"><strong>Circus Lane</strong> — Edinburgh's most Instagrammable cobbled lane. Magic in early morning with no tourists.</div>
+  </div>
+  <div class="tip-item">
+    <div class="tip-icon">🌈</div>
+    <div class="tip-text"><strong>Victoria Street</strong> — The colourful curved shops. Shoot from the top looking down for the best angle.</div>
+  </div>
+  <div class="tip-item">
+    <div class="tip-icon">🏰</div>
+    <div class="tip-text"><strong>The Mound / Princes St Gardens</strong> — Classic castle backdrop with spring flowers in April. Perfect composition.</div>
+  </div>
+</section>
+
+<!-- ──── BOTTOM NAV ──── -->
+<div class="bottom-nav" id="bottomNav" style="display:none">
+  <button class="bnav-btn active" onclick="showSection('itinerary')">
+    <div class="bnav-icon">📅</div>
+    <div class="bnav-label">Plan</div>
+  </button>
+  <button class="bnav-btn" onclick="showSection('restaurants')">
+    <div class="bnav-icon">🍽️</div>
+    <div class="bnav-label">Eat</div>
+  </button>
+  <button class="bnav-btn" onclick="showSection('attractions')">
+    <div class="bnav-icon">🏰</div>
+    <div class="bnav-label">See</div>
+  </button>
+  <button class="bnav-btn" onclick="showSection('tips')">
+    <div class="bnav-icon">💡</div>
+    <div class="bnav-label">Tips</div>
+  </button>
+  <button class="bnav-btn" onclick="showSection('map')">
+    <div class="bnav-icon">🗺️</div>
+    <div class="bnav-label">Map</div>
+  </button>
+  <button class="bnav-btn" onclick="showSection('gallery')">
+    <div class="bnav-icon">📷</div>
+    <div class="bnav-label">Gallery</div>
+  </button>
+</div>
+
+<script>
+  // Section navigation
+  const sectionOrder = ['itinerary','restaurants','attractions','tips','map','gallery'];
+  const navLabels = ['Plan','Eat','See','Tips','Map','Gallery'];
+
+  function showSection(id) {
+    // Hide hero, show nav + bottom nav
+    document.getElementById('heroSection').style.display = 'none';
+    document.getElementById('mainNav').style.display = '';
+    document.getElementById('bottomNav').style.display = '';
+
+    // Hide all sections
+    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.getElementById(id).classList.add('fade-in');
+    setTimeout(() => document.getElementById(id).classList.remove('fade-in'), 400);
+
+    // Update nav
+    document.querySelectorAll('.nav-btn').forEach((btn, i) => {
+      btn.classList.toggle('active', sectionOrder[i] === id);
+    });
+    document.querySelectorAll('.bnav-btn').forEach((btn, i) => {
+      btn.classList.toggle('active', sectionOrder[i] === id);
+    });
+
+    window.scrollTo(0,0);
+  }
+
+  // Day tabs
+  function showDay(idx) {
+    document.querySelectorAll('.day-tab').forEach((t,i) => t.classList.toggle('active', i === idx));
+    document.querySelectorAll('.day-panel').forEach((p,i) => p.classList.toggle('active', i === idx));
+  }
+
+  // Restaurant filter
+  function filterRest(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.restaurant-card').forEach(card => {
+      if (cat === 'all') {
+        card.style.display = '';
+      } else {
+        const cats = (card.dataset.cat || '').split(' ');
+        card.style.display = cats.includes(cat) ? '' : 'none';
+      }
+    });
+  }
+
+  // Packing list toggle
+  function togglePack(item) {
+    item.classList.toggle('checked');
+    savePacking();
+  }
+
+  // Persist packing state
+  function savePacking() {
+    try {
+      const items = document.querySelectorAll('.pack-item');
+      const state = Array.from(items).map(i => i.classList.contains('checked'));
+      localStorage.setItem('edin_packing', JSON.stringify(state));
+    } catch(e) {}
+  }
+
+  function loadPacking() {
+    try {
+      const saved = JSON.parse(localStorage.getItem('edin_packing') || '[]');
+      const items = document.querySelectorAll('.pack-item');
+      saved.forEach((checked, i) => {
+        if (items[i] && checked) items[i].classList.add('checked');
+      });
+    } catch(e) {}
+  }
+
+  loadPacking();
+
+  // PWA Service Worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+</script>
+</body>
+</html>
